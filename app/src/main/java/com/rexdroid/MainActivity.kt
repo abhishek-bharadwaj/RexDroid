@@ -19,7 +19,7 @@ class MainActivity : BaseActivity() {
     }
 
     /**
-     * No onComplete here as its meant to return one result
+     * No onComplete here as its meant to return one result.
      */
     public fun singleExample(v: View) {
         val methodName = object : Any() {}.javaClass.enclosingMethod.name
