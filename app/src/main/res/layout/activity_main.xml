@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="16dp"
-    tools:context="com.rexdroid.MainActivity">
+    tools:context="com.rexdroid.ObservableExampleActivity">
 
     <Button
         style="@style/BtnStyle"
@@ -16,4 +16,14 @@
         style="@style/BtnStyle"
         android:onClick="mayBeExample"
         android:text="Maybe" />
+
+    <Button
+        style="@style/BtnStyle"
+        android:onClick="observableExample"
+        android:text="Observable" />
+
+    <Button
+        style="@style/BtnStyle"
+        android:onClick="flowableExample"
+        android:text="Flowable" />
 </LinearLayout>
