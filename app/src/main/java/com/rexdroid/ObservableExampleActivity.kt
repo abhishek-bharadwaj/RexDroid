@@ -26,7 +26,7 @@ class ObservableExampleActivity : BaseActivity() {
         Single.just(Random().nextBoolean())
                 .subscribe(object : SingleObserver<Boolean> {
                     override fun onSubscribe(d: Disposable) {
-
+                        log(TAG, "$methodName --> onSubscribe")
                     }
 
                     override fun onError(e: Throwable) {
@@ -57,7 +57,7 @@ class ObservableExampleActivity : BaseActivity() {
                     }
 
                     override fun onSubscribe(d: Disposable) {
-
+                        log(TAG, "$methodName --> onSubscribe")
                     }
 
                     override fun onComplete() {
@@ -113,5 +113,22 @@ class ObservableExampleActivity : BaseActivity() {
                         log(TAG, "$methodName --> onSubscribe")
                     }
                 })
+    }
+
+    fun completableExample(v: View) {
+        val methodName = object : Any() {}.javaClass.enclosingMethod.name
+        Completable.complete().subscribe(object : CompletableObserver {
+            override fun onComplete() {
+                log(TAG, "$methodName --> onComplete")
+            }
+
+            override fun onSubscribe(d: Disposable) {
+                log(TAG, "$methodName --> onSubscribe")
+            }
+
+            override fun onError(e: Throwable) {
+                log(TAG, "$methodName --> onError")
+            }
+        })
     }
 }
