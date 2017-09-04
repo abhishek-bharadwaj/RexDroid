@@ -15,7 +15,7 @@ import kotlinx.android.synthetic.main.layout_logger_item.view.*
  * Created by abhishek on 4/9/17.
  */
 
-class LoggerFragment : BaseFragment() {
+class LoggerFragment : BaseFragment(), View.OnClickListener {
 
     private lateinit var adapter: LoggerRvAdapter
 
@@ -33,6 +33,12 @@ class LoggerFragment : BaseFragment() {
         adapter = LoggerRvAdapter(context, mutableListOf())
         rv_logger.layoutManager = LinearLayoutManager(context)
         rv_logger.adapter = adapter
+
+        ib_clear.setOnClickListener(this)
+    }
+
+    override fun onClick(v: View?) {
+        adapter.clearLogs()
     }
 
     class LoggerRvAdapter(private val context: Context, private val logs: MutableList<String>)
@@ -50,6 +56,11 @@ class LoggerFragment : BaseFragment() {
         fun addLogs(log: String) {
             logs.add(log)
             notifyItemInserted(logs.size - 1)
+        }
+
+        fun clearLogs() {
+            logs.clear()
+            notifyDataSetChanged()
         }
     }
 

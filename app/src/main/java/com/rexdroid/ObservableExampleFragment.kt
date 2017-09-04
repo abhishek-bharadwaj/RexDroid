@@ -9,8 +9,8 @@ import io.reactivex.*
 import io.reactivex.Observable
 import io.reactivex.Observer
 import io.reactivex.disposables.Disposable
+import io.reactivex.subscribers.DisposableSubscriber
 import kotlinx.android.synthetic.main.fragment_observable_example.*
-import org.reactivestreams.Subscription
 import java.util.*
 
 class ObservableExampleFragment : BaseFragment(), View.OnClickListener {
@@ -64,7 +64,7 @@ class ObservableExampleFragment : BaseFragment(), View.OnClickListener {
                     }
 
                     override fun onSuccess(t: Boolean) {
-                        activity.log("$methodName --> onSuccess $t")
+                        activity.log("$methodName --> onSuccess : value $t")
                     }
                 })
 
@@ -79,7 +79,7 @@ class ObservableExampleFragment : BaseFragment(), View.OnClickListener {
                 .filter { it }
                 .subscribe(object : MaybeObserver<Boolean> {
                     override fun onSuccess(t: Boolean) {
-                        activity.log("$methodName --> onSuccess $t")
+                        activity.log("$methodName --> onSuccess : value $t")
                     }
 
                     override fun onError(e: Throwable) {
@@ -106,11 +106,11 @@ class ObservableExampleFragment : BaseFragment(), View.OnClickListener {
                     }
 
                     override fun onNext(t: Int) {
-                        activity.log("$methodName --> onNext ---> $t")
+                        activity.log("$methodName --> onNext : value $t")
                     }
 
                     override fun onError(e: Throwable) {
-                        activity.log("$methodName --> onError")
+                        activity.log("$methodName --> onError $e")
                     }
 
                     override fun onComplete() {
@@ -121,14 +121,14 @@ class ObservableExampleFragment : BaseFragment(), View.OnClickListener {
 
     private fun flowableExample() {
         val methodName = object : Any() {}.javaClass.enclosingMethod.name
-        Flowable.fromArray(4, 8, 12, 24, 56, 78, 200)
+        /*Flowable.fromArray(4, 8, 12, 24, 56, 78, 200)
                 .subscribe {
                     activity.log("$methodName --> onNext ---> $it")
-                }
+                }*/
         Flowable.fromArray(4, 8, 12, 24, 56, 78, 200)
-                .subscribe(object : FlowableSubscriber<Int> {
+                .subscribe(object : DisposableSubscriber<Int>() {
                     override fun onNext(t: Int) {
-                        activity.log("$methodName --> onNext ---> $t")
+                        activity.log("$methodName --> onNext ---> : value  $t")
                     }
 
                     override fun onError(e: Throwable) {
@@ -139,9 +139,9 @@ class ObservableExampleFragment : BaseFragment(), View.OnClickListener {
                         activity.log("$methodName --> onComplete")
                     }
 
-                    override fun onSubscribe(s: Subscription) {
+                    /*override fun onSubscribe(s: Subscription) {
                         activity.log("$methodName --> onSubscribe")
-                    }
+                    }*/
                 })
     }
 
