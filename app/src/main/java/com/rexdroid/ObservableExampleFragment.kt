@@ -15,7 +15,6 @@ import java.util.*
 
 class ObservableExampleFragment : BaseFragment(), View.OnClickListener {
 
-    val TAG = javaClass.simpleName
     lateinit var activity: MainActivity
 
     companion object {
@@ -30,6 +29,7 @@ class ObservableExampleFragment : BaseFragment(), View.OnClickListener {
 
     override fun init() {
         activity = getActivity() as MainActivity
+        activity.supportActionBar?.title = javaClass.simpleName
 
         btn_single.setOnClickListener(this)
         btn_maybe.setOnClickListener(this)
@@ -56,15 +56,15 @@ class ObservableExampleFragment : BaseFragment(), View.OnClickListener {
         Single.just(Random().nextBoolean())
                 .subscribe(object : SingleObserver<Boolean> {
                     override fun onSubscribe(d: Disposable) {
-                        activity.log(TAG, "$methodName --> onSubscribe")
+                        activity.log("$methodName --> onSubscribe")
                     }
 
                     override fun onError(e: Throwable) {
-                        activity.log(TAG, "$methodName --> onError $e")
+                        activity.log("$methodName --> onError $e")
                     }
 
                     override fun onSuccess(t: Boolean) {
-                        activity.log(TAG, "$methodName --> onSuccess $t")
+                        activity.log("$methodName --> onSuccess $t")
                     }
                 })
 
@@ -79,19 +79,19 @@ class ObservableExampleFragment : BaseFragment(), View.OnClickListener {
                 .filter { it }
                 .subscribe(object : MaybeObserver<Boolean> {
                     override fun onSuccess(t: Boolean) {
-                        activity.log(TAG, "$methodName --> onSuccess $t")
+                        activity.log("$methodName --> onSuccess $t")
                     }
 
                     override fun onError(e: Throwable) {
-                        activity.log(TAG, "$methodName --> onError $e")
+                        activity.log("$methodName --> onError $e")
                     }
 
                     override fun onSubscribe(d: Disposable) {
-                        activity.log(TAG, "$methodName --> onSubscribe")
+                        activity.log("$methodName --> onSubscribe")
                     }
 
                     override fun onComplete() {
-                        activity.log(TAG, "$methodName --> onComplete")
+                        activity.log("$methodName --> onComplete")
                     }
                 })
     }
@@ -102,19 +102,19 @@ class ObservableExampleFragment : BaseFragment(), View.OnClickListener {
                 .subscribe(object : Observer<Int> {
 
                     override fun onSubscribe(d: Disposable) {
-                        activity.log(TAG, "$methodName --> onSubscribe")
+                        activity.log("$methodName --> onSubscribe")
                     }
 
                     override fun onNext(t: Int) {
-                        activity.log(TAG, "$methodName --> onNext ---> $t")
+                        activity.log("$methodName --> onNext ---> $t")
                     }
 
                     override fun onError(e: Throwable) {
-                        activity.log(TAG, "$methodName --> onError")
+                        activity.log("$methodName --> onError")
                     }
 
                     override fun onComplete() {
-                        activity.log(TAG, "$methodName --> onComplete")
+                        activity.log("$methodName --> onComplete")
                     }
                 })
     }
@@ -123,24 +123,24 @@ class ObservableExampleFragment : BaseFragment(), View.OnClickListener {
         val methodName = object : Any() {}.javaClass.enclosingMethod.name
         Flowable.fromArray(4, 8, 12, 24, 56, 78, 200)
                 .subscribe {
-                    activity.log(TAG, "$methodName --> onNext ---> $it")
+                    activity.log("$methodName --> onNext ---> $it")
                 }
         Flowable.fromArray(4, 8, 12, 24, 56, 78, 200)
                 .subscribe(object : FlowableSubscriber<Int> {
                     override fun onNext(t: Int) {
-                        activity.log(TAG, "$methodName --> onNext ---> $t")
+                        activity.log("$methodName --> onNext ---> $t")
                     }
 
                     override fun onError(e: Throwable) {
-                        activity.log(TAG, "$methodName --> onError")
+                        activity.log("$methodName --> onError")
                     }
 
                     override fun onComplete() {
-                        activity.log(TAG, "$methodName --> onComplete")
+                        activity.log("$methodName --> onComplete")
                     }
 
                     override fun onSubscribe(s: Subscription) {
-                        activity.log(TAG, "$methodName --> onSubscribe")
+                        activity.log("$methodName --> onSubscribe")
                     }
                 })
     }
@@ -149,15 +149,15 @@ class ObservableExampleFragment : BaseFragment(), View.OnClickListener {
         val methodName = object : Any() {}.javaClass.enclosingMethod.name
         Completable.complete().subscribe(object : CompletableObserver {
             override fun onComplete() {
-                activity.log(TAG, "$methodName --> onComplete")
+                activity.log("$methodName --> onComplete")
             }
 
             override fun onSubscribe(d: Disposable) {
-                activity.log(TAG, "$methodName --> onSubscribe")
+                activity.log("$methodName --> onSubscribe")
             }
 
             override fun onError(e: Throwable) {
-                activity.log(TAG, "$methodName --> onError")
+                activity.log("$methodName --> onError")
             }
         })
     }

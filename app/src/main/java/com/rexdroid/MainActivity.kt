@@ -3,7 +3,6 @@ package com.rexdroid
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
-import android.util.Log
 import kotlinx.android.synthetic.main.activity_main.*
 
 /**
@@ -22,9 +21,8 @@ class MainActivity : AppCompatActivity() {
         replaceFragment(loggerFragment, fl_logger.id)
     }
 
-    fun log(tag: String, any: Any) {
-        Log.w(tag, any.toString())
-        loggerFragment.addLog(":/>$tag : $any")
+    fun log(any: Any) {
+        loggerFragment.addLog(":/> $any")
     }
 
     private fun replaceFragment(fragment: Fragment, layout: Int) {

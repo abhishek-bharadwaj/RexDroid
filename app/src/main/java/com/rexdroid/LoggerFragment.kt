@@ -31,7 +31,7 @@ class LoggerFragment : BaseFragment() {
 
     override fun init() {
         adapter = LoggerRvAdapter(context, mutableListOf())
-        rv_logger.layoutManager = LinearLayoutManager(activity)
+        rv_logger.layoutManager = LinearLayoutManager(context)
         rv_logger.adapter = adapter
     }
 
@@ -55,5 +55,8 @@ class LoggerFragment : BaseFragment() {
 
     class LoggerVH(rootView: View) : RecyclerView.ViewHolder(rootView)
 
-    fun addLog(log: String) = adapter.addLogs(log)
+    fun addLog(log: String) {
+        adapter.addLogs(log)
+        rv_logger.scrollToPosition(adapter.itemCount - 1)
+    }
 }
