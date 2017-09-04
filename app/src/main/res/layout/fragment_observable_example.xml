@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    tools:context="com.rexdroid.ObservableExampleFragment">
+
+    <Button
+        android:id="@+id/btn_single"
+        style="@style/BtnStyle"
+        android:text="Single" />
+
+    <Button
+        android:id="@+id/btn_maybe"
+        style="@style/BtnStyle"
+        android:text="Maybe" />
+
+    <Button
+        android:id="@+id/btn_observable"
+        style="@style/BtnStyle"
+        android:text="Observable" />
+
+    <Button
+        android:id="@+id/btn_flowable"
+        style="@style/BtnStyle"
+        android:text="Flowable" />
+
+    <Button
+        android:id="@+id/btn_completable"
+        style="@style/BtnStyle"
+        android:text="Completable" />
+</LinearLayout>
