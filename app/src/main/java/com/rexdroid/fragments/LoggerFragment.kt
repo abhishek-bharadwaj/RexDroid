@@ -1,4 +1,4 @@
-package com.rexdroid
+package com.rexdroid.fragments
 
 import android.content.Context
 import android.os.Bundle
@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.rexdroid.R
 import com.rexdroid.base.BaseFragment
 import kotlinx.android.synthetic.main.fragment_logger.*
 import kotlinx.android.synthetic.main.layout_logger_item.view.*

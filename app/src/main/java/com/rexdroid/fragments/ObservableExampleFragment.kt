@@ -1,9 +1,11 @@
-package com.rexdroid
+package com.rexdroid.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.rexdroid.MainActivity
+import com.rexdroid.R
 import com.rexdroid.base.BaseFragment
 import io.reactivex.*
 import io.reactivex.Observable
