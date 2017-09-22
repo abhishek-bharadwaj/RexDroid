@@ -21,6 +21,11 @@
                 android:id="@+id/btn_observable_example"
                 style="@style/BtnStyle"
                 android:text="Observable Example" />
+
+            <Button
+                android:id="@+id/btn_rx_threading"
+                style="@style/BtnStyle"
+                android:text="Rx Threading" />
         </LinearLayout>
     </ScrollView>
 
