@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.rexdroid.fragments.LoggerFragment
 import com.rexdroid.fragments.ObservableExampleFragment
+import com.rexdroid.fragments.RxOperatorsFragment
 import com.rexdroid.fragments.RxThreadingFragment
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -26,7 +27,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         btn_rx_threading.setOnClickListener(this)
 
         replaceFragment(loggerFragment, fl_logger)
-        replaceFragment(RxThreadingFragment.getInstance(), ll_container)
+        replaceFragment(RxOperatorsFragment.getInstance(), ll_container)
     }
 
     override fun onClick(view: View?) {

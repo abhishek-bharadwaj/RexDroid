@@ -6,7 +6,6 @@ import android.content.Intent
 import android.os.AsyncTask
 import android.os.Binder
 import android.os.Bundle
-import android.os.IBinder
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,6 +13,7 @@ import com.rexdroid.MainActivity
 import com.rexdroid.R
 import com.rexdroid.base.BaseFragment
 import io.reactivex.Observable
+import io.reactivex.schedulers.Schedulers
 
 /**
  * Created by abhishek on 21/9/17.
@@ -28,7 +28,7 @@ class RxThreadingFragment : BaseFragment(), View.OnClickListener {
     }
 
     override fun getDefaultLayout(inflater: LayoutInflater?, container: ViewGroup?)
-            = inflater?.inflate(R.layout.fragment_rx_threading, container, false)
+            = inflater?.inflate(R.layout.fragment_rx_operators, container, false)
 
     override fun extractArguments(extras: Bundle) {
     }
@@ -56,6 +56,11 @@ class RxThreadingFragment : BaseFragment(), View.OnClickListener {
 //        }
 
 //        TestAsyncTask().execute()
+
+//        Thread().run {
+//            Thread.sleep(200)
+//            RxThreadingFragment.Hello.runRxCode()
+//        }
     }
 
     override fun onClick(view: View?) {
@@ -71,7 +76,7 @@ class RxThreadingFragment : BaseFragment(), View.OnClickListener {
         }
     }
 
-    class TestIntentService() : IntentService("") {
+    class TestIntentService : IntentService("") {
 
         override fun onHandleIntent(p0: Intent?) {
             RxThreadingFragment.Hello.runRxCode()
@@ -91,6 +96,7 @@ class RxThreadingFragment : BaseFragment(), View.OnClickListener {
             Observable.just("long", "longer", "longest", "most longest...")
                     .map { it -> it.length }
                     .doOnNext { c -> println("processing item on thread " + Thread.currentThread().name) }
+                    .subscribeOn(Schedulers.io())
                     .subscribe { length -> println("item length " + length) }
         }
     }
