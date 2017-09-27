@@ -11,7 +11,6 @@ import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_rx_operators.*
-import java.util.*
 
 /**
  * Created by abhishek on 27/9/17.
@@ -40,6 +39,8 @@ class RxOperatorsFragment : BaseFragment(), View.OnClickListener {
         activity.supportActionBar?.title = javaClass.simpleName
 
         btn_flat_map.setOnClickListener(this)
+        btn_concat_map.setOnClickListener(this)
+        btn_map.setOnClickListener(this)
         btn_flat_map.performClick()
     }
 
@@ -47,22 +48,41 @@ class RxOperatorsFragment : BaseFragment(), View.OnClickListener {
         when (view?.id) {
             R.id.btn_flat_map -> {
                 observable1.flatMap { it ->
-                    doSomeBigTask().subscribeOn(Schedulers.newThread())
+                    println("Flatmap got called")
+                    doSomeBigTaskReturnObservable(it)
+                            .subscribeOn(Schedulers.newThread())
                             .doOnNext { println("processing item on thread ${Thread.currentThread().name}") }
                 }.subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe { activity.log(it) }
+
+/*                observable1.map {
+                    doSomeBigTaskReturnDouble(it)
+                }.doOnNext { println("processing item on thread ${Thread.currentThread().name}") }
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe { activity.log(it) }*/
             }
         }
     }
 
-    private fun doSomeBigTask(): Observable<Double> {
+    private fun doSomeBigTaskReturnObservable(it: Int): Observable<Int> {
         return try {
-            val rand = Random().nextDouble() * 1000
+            val rand = it * 100
             Thread.sleep(rand.toLong())
             Observable.just(rand)
         } catch (e: Exception) {
             Observable.just(null)
+        }
+    }
+
+    private fun doSomeBigTaskReturnDouble(it: Int): Int {
+        return try {
+            val rand = it * 100
+            Thread.sleep(rand.toLong())
+            rand
+        } catch (e: Exception) {
+            0
         }
     }
 }
