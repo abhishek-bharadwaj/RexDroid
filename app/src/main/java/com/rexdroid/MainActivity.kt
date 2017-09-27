@@ -3,7 +3,6 @@ package com.rexdroid
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
-import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import com.rexdroid.fragments.LoggerFragment
@@ -42,7 +41,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     fun log(any: Any) {
-        Log.d(javaClass.simpleName, any.toString())
+        println(any.toString())
         loggerFragment.addLog(":/> $any")
     }
 
